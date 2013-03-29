@@ -35,6 +35,5 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
   override def enter(gc: GameContainer, game: StateBasedGame) {
     super.enter(gc, game)
     level = Level001
-    gc.getInput.addMouseListener(level.paddle)
   }
 }

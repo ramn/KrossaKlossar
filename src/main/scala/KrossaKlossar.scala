@@ -18,6 +18,7 @@ object KrossaKlossar extends App {
   val app = new AppGameContainer(new KrossaKlossar)
   app.setDisplayMode(Width, Height, false)
   app.setMinimumLogicUpdateInterval(updateIntervalMs)
+  app.setMouseGrabbed(true)
   app.start()
 }
 

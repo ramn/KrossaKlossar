@@ -19,7 +19,7 @@ import org.newdawn.slick.geom.Vector2f
 import se.ramn.krossaklossar.KrossaKlossar.{Width, Height}
 import se.ramn.krossaklossar.util.MouseMovable 
 
-class Paddle extends Collidable with MouseMovable {
+class Paddle extends Collidable {
   private val width = 100
   private val height = 20
   private val initX = Width/2-width/2
@@ -29,19 +29,28 @@ class Paddle extends Collidable with MouseMovable {
   private val shape = new Rectangle(initX, initY, width, height)
 
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
-    shape.setLocation(position)
+    updatePosition(gc)
   }
 
   def render(g: Graphics) {
-    g.setColor(Color.blue)
-    g.draw(shape)
+    g.setColor(Color.white)
+    g.fill(shape)
   }
 
   override def collisionShape = shape
 
-	override def mouseMoved(oldx: Int, oldy: Int, newx: Int, newy: Int) {
-		if (newx > 10 && newx < 690) {
-			position.x = newx
+  private def updatePosition(gc: GameContainer) {
+    val margin = 10
+    val leftStop = margin
+    val rightStop = Width-width-margin
+    val mouseX = gc.getInput.getMouseX
+    if (mouseX > leftStop && mouseX < rightStop) {
+      position.x = mouseX
+    } else if (mouseX <= leftStop) {
+      position.x = leftStop
+    } else if (mouseX >= rightStop) {
+      position.x = rightStop
     }
+    shape.setLocation(position)
   }
 }
