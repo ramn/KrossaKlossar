@@ -10,5 +10,5 @@ trait Collidable {
   def collisionShape: Shape
 
   def collidesWith(collidable: Collidable): Boolean =
-		collisionShape intersects collidable.collisionShape
+    collisionShape intersects collidable.collisionShape
 }

@@ -6,17 +6,18 @@ import org.newdawn.slick.GameContainer
 
 
 trait Level {
-	def balls: Seq[Ball]
+  def balls: Seq[Ball]
 
-	def paddle: Paddle
+  def paddle: Paddle
 
-	def bricks: Seq[Brick]
+  def bricks: Seq[Brick]
 
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
-    balls foreach (_ update (gc, game, delta))
     bricks foreach (_ update (gc, game, delta))
-    paddle update (gc, game, delta)
 
+    balls foreach (_ update (gc, game, delta))
+
+    paddle update (gc, game, delta)
   }
 
   def render(g: Graphics) {
