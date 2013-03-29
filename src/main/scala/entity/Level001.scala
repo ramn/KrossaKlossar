@@ -4,7 +4,7 @@ import org.newdawn.slick.Graphics
 
 
 object Level001 extends Level {
-	def balls = List(new Ball)
+  val balls = List(new Ball)
   val paddle = new Paddle
-	def bricks: Seq[Brick] = Nil
+  val bricks: Seq[Brick] = Nil
 }
