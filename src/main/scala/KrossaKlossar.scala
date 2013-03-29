@@ -9,8 +9,10 @@ import states.{Playing, Menu}
 
 
 object KrossaKlossar extends App {
-  val Width = 1440
-  val Height = 832
+  //val Width = 1440
+  //val Height = 832
+  val Width = 800
+  val Height = 600
   val updateIntervalMs = 16
 
   val app = new AppGameContainer(new KrossaKlossar)

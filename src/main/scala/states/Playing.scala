@@ -12,9 +12,12 @@ import org.newdawn.slick.SpriteSheet
 import org.newdawn.slick.geom.{Shape, Rectangle}
 
 import se.ramn.krossaklossar.util
+import se.ramn.krossaklossar.entity.Level
+import se.ramn.krossaklossar.entity.Level001
 
 
 class Playing(val gameState: GameStates.Value) extends BasicGameState {
+  var level: Level = _
 
   def getID: Int = gameState.id
 
@@ -22,10 +25,16 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
   }
 
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
+    level.update(gc, game, delta)
   }
 
   def render(gc: GameContainer, game: StateBasedGame, g: Graphics) {
-    g.setFont(util.Font.default)
-    g.drawString("Now playing", 100, 100)
+    level.render(g)
+  }
+
+  override def enter(gc: GameContainer, game: StateBasedGame) {
+    super.enter(gc, game)
+    level = Level001
+    gc.getInput.addMouseListener(level.paddle)
   }
 }
