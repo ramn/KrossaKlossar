@@ -1,4 +1,4 @@
-package se.ramn.krossaklossar.entity
+package se.ramn.krossaklossar.collision
 
 import org.newdawn.slick.Image
 import org.newdawn.slick.geom.Shape

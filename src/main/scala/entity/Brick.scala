@@ -11,6 +11,8 @@ import org.newdawn.slick.Image
 import org.newdawn.slick.SpriteSheet
 import org.newdawn.slick.geom.{Shape, Rectangle}
 
+import se.ramn.krossaklossar.collision.Collidable
+
 
 class Brick extends Collidable {
 

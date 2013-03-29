@@ -17,6 +17,8 @@ import org.newdawn.slick.geom.Shape
 import org.newdawn.slick.geom.Vector2f
 
 import se.ramn.krossaklossar.KrossaKlossar.{Width, Height}
+import se.ramn.krossaklossar.collision.Collidable
+
 
 class Paddle extends Collidable {
   private val width = 100
