@@ -12,8 +12,8 @@ import org.newdawn.slick.SpriteSheet
 import org.newdawn.slick.geom.{Shape, Rectangle}
 
 import se.ramn.krossaklossar.util
-import se.ramn.krossaklossar.entity.Level
-import se.ramn.krossaklossar.entity.Level001
+import se.ramn.krossaklossar.level.Level
+import se.ramn.krossaklossar.level.Level001
 
 
 class Playing(val gameState: GameStates.Value) extends BasicGameState {

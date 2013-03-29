@@ -1,8 +1,12 @@
-package se.ramn.krossaklossar.entity
+package se.ramn.krossaklossar.level
 
 import org.newdawn.slick.Graphics
 import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.GameContainer
+
+import se.ramn.krossaklossar.entity.Ball
+import se.ramn.krossaklossar.entity.Paddle
+import se.ramn.krossaklossar.entity.Brick
 
 
 trait Level {
