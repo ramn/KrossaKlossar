@@ -14,7 +14,8 @@ import org.newdawn.slick.geom.{Shape, Rectangle}
 import se.ramn.krossaklossar.util
 
 
-class Playing(val gameState: GameStates.Value) extends BasicGameState {
+class Menu(val gameState: GameStates.Value) extends BasicGameState {
+  lazy val font = util.Font.build
 
   def getID: Int = gameState.id
 
@@ -22,10 +23,21 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
   }
 
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
+    if (gc.getInput.isKeyPressed(Input.KEY_P)) {
+      game.enterState(GameStates.Playing.id)
+    } else if (gc.getInput.isKeyPressed(Input.KEY_H)) {
+    }
   }
 
   def render(gc: GameContainer, game: StateBasedGame, g: Graphics) {
-    g.setFont(util.Font.default)
-    g.drawString("Now playing", 100, 100)
+    g.setFont(font)
+    val menu = """
+    |Welcome to Krossa Klossar!
+    |
+    |Press p to play
+    |Press h for highscore
+    |""".stripMargin.trim
+
+    g.drawString(menu, 100, 100)
   }
 }

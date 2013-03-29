@@ -5,7 +5,7 @@ import org.newdawn.slick.GameContainer
 import org.newdawn.slick.state.StateBasedGame
 
 import states.GameStates
-import states.Playing
+import states.{Playing, Menu}
 
 
 object KrossaKlossar extends App {
@@ -21,6 +21,7 @@ object KrossaKlossar extends App {
 
 class KrossaKlossar extends StateBasedGame("Objects in Space") {
   def initStatesList(gc: GameContainer) {
+    this.addState(new Menu(GameStates.Menu))
     this.addState(new Playing(GameStates.Playing))
   }
 }
