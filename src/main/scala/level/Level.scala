@@ -4,9 +4,7 @@ import org.newdawn.slick.Graphics
 import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.GameContainer
 
-import se.ramn.krossaklossar.entity.Ball
-import se.ramn.krossaklossar.entity.Paddle
-import se.ramn.krossaklossar.entity.Brick
+import se.ramn.krossaklossar.entity._
 
 
 trait Level {
@@ -16,17 +14,23 @@ trait Level {
 
   def bricks: Seq[Brick]
 
+  def leftWall: LeftWall
+
+  def rightWall: RightWall
+
+  def topWall: TopWall
+
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
-    bricks foreach (_ update (gc, game, delta))
-
-    balls foreach (_ update (gc, game, delta))
-
+    balls foreach (_ update(gc, game, delta, this))
     paddle update (gc, game, delta)
+    bricks foreach (_ update (gc, game, delta))
   }
 
   def render(g: Graphics) {
-    bricks foreach (_ render g)
     balls foreach (_ render g)
-    paddle render g
+    entitiesNoBalls foreach (_ render g)
   }
+
+  private def entitiesNoBalls: Seq[Renderable] =
+    bricks ++ Seq(paddle, leftWall, rightWall, topWall)
 }

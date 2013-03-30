@@ -14,7 +14,7 @@ import org.newdawn.slick.geom.{Shape, Rectangle}
 import se.ramn.krossaklossar.collision.Collidable
 
 
-class Brick extends Collidable {
+class Brick extends Renderable with Collidable {
 
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
   }

@@ -20,7 +20,7 @@ import se.ramn.krossaklossar.KrossaKlossar.{Width, Height}
 import se.ramn.krossaklossar.collision.Collidable
 
 
-class Paddle extends Collidable {
+class Paddle extends Renderable with Collidable {
   private val width = 100
   private val height = 20
   private val initX = Width/2-width/2

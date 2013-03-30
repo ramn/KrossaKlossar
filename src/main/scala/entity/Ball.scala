@@ -11,29 +11,102 @@ import org.newdawn.slick.geom.Vector2f
 
 import se.ramn.krossaklossar.KrossaKlossar.{Width, Height}
 import se.ramn.krossaklossar.collision.Collidable
+import se.ramn.krossaklossar.level.Level
 
 
-class Ball extends Collidable {
+class Ball extends Renderable with Collidable {
   private val radius = 4
   private val initX = Width/2-radius/2
   private val initY = Height/2
-  private val initialSpeed = 0.1f
+  private val initialSpeed = 0.2f
   private val speed = initialSpeed
   private val position = new Vector2f(initX, initY)
   private val shape: Shape = new Circle(initX, initY, radius)
-  private val direction = new Vector2f(1.0f, 1.0f)
+  private val direction = new Vector2f(-1.0f, 1.0f)
 
-  def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
-    //position.x += direction.x * delta * speed
-    //position.y -= direction.y * delta * speed
-    position.add(direction.copy.scale(speed * delta))
+  def update(gc: GameContainer, game: StateBasedGame, delta: Int) {}
+  def update(gc: GameContainer, game: StateBasedGame, delta: Int, level: Level) {
+    val movement = direction.copy.scale(speed * delta)
+    position.add(movement)
     shape.setLocation(position)
+
+    handleCollisionsWith(level.paddle, movement)
+    handleCollisionsWith(level.leftWall, movement)
+    handleCollisionsWith(level.rightWall, movement)
+    handleCollisionsWith(level.topWall, movement)
   }
 
   def render(g: Graphics) {
-    g.setColor(Color.red)
+    g.setColor(Color.white)
     g.fill(shape)
   }
 
   override def collisionShape = shape
+
+
+  // @return true if collided
+  private def handleCollisionsWith(collidable: Collidable, movement: Vector2f): Boolean =
+    if (collidable collidesWith this) {
+      val moveDirBack = movementBackwards(movement)
+      var timesMovedBack = 0
+      do {
+        timesMovedBack += 1
+        position.add(moveDirBack)
+        shape.setLocation(position)
+      } while (collidable collidesWith this)
+
+      val currTheta = direction.getTheta
+
+      collidable match {
+        case c: RightWall =>
+          if (currTheta < 90)
+            bounceClockWise()
+          else
+            bounceCounterClockWise()
+        case c: TopWall =>
+          if (currTheta >= 270)
+            bounceClockWise()
+          else
+            bounceCounterClockWise()
+        case c: LeftWall =>
+          if (currTheta < 180)
+            bounceCounterClockWise()
+          else
+            bounceClockWise()
+        case paddle: Paddle =>
+          if (currTheta > 90)
+            bounceClockWise()
+          else
+            bounceCounterClockWise()
+      }
+      val moveForwardInNewDir = movementBackwards(moveDirBack)
+      for (i <- 0 until timesMovedBack) {
+        position.add(moveForwardInNewDir)
+        shape.setLocation(position)
+      }
+      true
+    } else {
+      false
+    }
+
+  private def bounce(clockWise: Boolean) {
+    val operator: (Double, Double) => Double =
+      if (clockWise) (a, b) => a + b
+      else (a, b) => a - b
+    direction.setTheta(operator(direction.getTheta, (direction.getTheta*2)%180))
+  }
+
+  private def bounceClockWise() {
+    bounce(clockWise=true)
+  }
+
+  private def bounceCounterClockWise() {
+    bounce(clockWise=false)
+  }
+
+  private def movementBackwards(movement: Vector2f): Vector2f = {
+    val moveDirBack = movement.copy
+    moveDirBack.setTheta(moveDirBack.getTheta + 180)
+    moveDirBack.scale(0.01f)
+  }
 }
