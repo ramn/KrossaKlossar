@@ -3,6 +3,7 @@ package se.ramn.krossaklossar.level
 import org.newdawn.slick.Graphics
 import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.GameContainer
+import org.newdawn.slick.Input
 
 import se.ramn.krossaklossar.entity._
 
@@ -28,6 +29,8 @@ trait Level {
 
   def points: Int = _points
 
+  def costOfNewBall: Int
+
   protected def points_=(value: Int) {
     _points = value
   }
@@ -40,6 +43,11 @@ trait Level {
     balls = balls filterNot (_.isDropped)
     points += (bricks filter (_.isDestroyed) map (_.pointsWorth)).sum
     bricks = bricks filterNot (_.isDestroyed)
+
+    if (gc.getInput.isKeyPressed(Input.KEY_B) && points >= costOfNewBall) {
+      addBall()
+      points -= costOfNewBall
+    }
   }
 
   def render(g: Graphics) {

@@ -12,6 +12,7 @@ class Level001 extends Level {
   val leftWall = new LeftWall
   val rightWall = new RightWall
   val topWall = new TopWall
+  val costOfNewBall = 500
   var bricks: Seq[Brick] = {
     val offset = 10
     val padding = 5

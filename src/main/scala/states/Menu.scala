@@ -34,6 +34,8 @@ class Menu(val gameState: GameStates.Value) extends BasicGameState {
     |Welcome to Krossa Klossar!
     |
     |Press p to play
+    |
+    |While playing, new balls can be bought by pressing b. This costs points!
     |""".stripMargin.trim
 
     g.drawString(menu, 100, 100)

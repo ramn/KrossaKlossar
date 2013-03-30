@@ -24,7 +24,7 @@ class Paddle extends Renderable with Collidable {
   private val width = 100
   private val height = 20
   private val initX = Width/2-width/2
-  private val initY = Height-height-20
+  private val initY = Height-height-30
   private val position = new Vector2f(initX, initY)
 
   private val shape = new Rectangle(initX, initY, width, height)

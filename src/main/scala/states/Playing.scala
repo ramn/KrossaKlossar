@@ -33,7 +33,13 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
   def render(gc: GameContainer, game: StateBasedGame, g: Graphics) {
     level.render(g)
     g.setFont(util.Font.default)
-    g.drawString(s"Score: ${level.points}", 15, Height-15)
+    val textOffsetX = 15
+    val textOffsetY = Height-20
+    val scoreText = s"Score: ${level.points}"
+    g.drawString(scoreText, textOffsetX, textOffsetY)
+    g.drawString(s"Ball price: ${level.costOfNewBall}",
+      textOffsetX + scoreText.length * 8 + textOffsetX,
+      textOffsetY)
   }
 
   override def enter(gc: GameContainer, game: StateBasedGame) {
