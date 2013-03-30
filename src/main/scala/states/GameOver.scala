@@ -20,6 +20,8 @@ class GameOver(val gameState: GameStates.Value) extends BasicGameState {
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
     if (gc.getInput.isKeyPressed(Input.KEY_M)) {
       game.enterState(GameStates.Menu.id)
+    } else if (gc.getInput.isKeyPressed(Input.KEY_Q)) {
+      sys.exit
     }
   }
 
@@ -29,6 +31,7 @@ class GameOver(val gameState: GameStates.Value) extends BasicGameState {
     |Game Over!
     |
     |Press m for menu
+    |Press q to quit
     |""".stripMargin.trim
 
     g.drawString(menu, 100, 100)

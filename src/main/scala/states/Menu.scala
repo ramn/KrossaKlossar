@@ -25,6 +25,8 @@ class Menu(val gameState: GameStates.Value) extends BasicGameState {
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
     if (gc.getInput.isKeyPressed(Input.KEY_P)) {
       game.enterState(GameStates.Playing.id)
+    } else if (gc.getInput.isKeyPressed(Input.KEY_Q)) {
+      sys.exit
     }
   }
 
@@ -34,6 +36,7 @@ class Menu(val gameState: GameStates.Value) extends BasicGameState {
     |Welcome to Krossa Klossar!
     |
     |Press p to play
+    |Press q to quit
     |
     |While playing, new balls can be bought by pressing b. This costs points!
     |""".stripMargin.trim
