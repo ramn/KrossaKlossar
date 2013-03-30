@@ -38,7 +38,12 @@ class Menu(val gameState: GameStates.Value) extends BasicGameState {
     |Press p to play
     |Press q to quit
     |
-    |While playing, new balls can be bought by pressing b. This costs points!
+    |
+    |Gameplay
+    |--------
+    |Buy more balls by pressing b. This costs points!
+    |Press z while the ball is hitting the paddle to increase ball speed
+    |Press x while the ball is hitting the paddle to decrease ball speed
     |""".stripMargin.trim
 
     g.drawString(menu, 100, 100)

@@ -19,25 +19,32 @@ class Ball extends Renderable with Collidable {
   private val initX = Width/2-radius/2
   private val initY = Height/2
   private val initialSpeed = 0.25f
-  private val speed = initialSpeed
+  private val speedAdjustDelta = 0.03f
   private val position = new Vector2f(initX, initY)
   private val shape: Shape = new Circle(initX, initY, radius)
   private val direction = new Vector2f(-1.0f, 1.0f)
   private val killsRequiredPerLevel = 4
   private val maxLevel = 4
 
+  private var speed = initialSpeed
   private var killCount = 0
+
+  class CollisionHandler(movement: Vector2f, input: Input) {
+    val increaseSpeed = input.isKeyDown(Input.KEY_Z)
+    val decreaseSpeed = input.isKeyDown(Input.KEY_X)
+    def handle(collidable: Collidable) = {
+      handleCollisionsWith(collidable, movement.copy, increaseSpeed, decreaseSpeed)
+    }
+  }
 
   def update(gc: GameContainer, game: StateBasedGame, delta: Int, level: Level) {
     val movement = direction.copy.scale(speed * delta)
     position.add(movement)
     shape.setLocation(position)
 
-    handleCollisionsWith(level.paddle, movement)
-    handleCollisionsWith(level.leftWall, movement)
-    handleCollisionsWith(level.rightWall, movement)
-    handleCollisionsWith(level.topWall, movement)
-    level.bricks foreach { brick => handleCollisionsWith(brick, movement) }
+    val collisionHandler = new CollisionHandler(movement, gc.getInput)
+    val collidables = Seq(level.paddle, level.leftWall, level.rightWall, level.topWall) ++ level.bricks
+    collidables foreach collisionHandler.handle
   }
 
   def render(g: Graphics) {
@@ -67,7 +74,12 @@ class Ball extends Renderable with Collidable {
   def damage = level
 
 
-  private def handleCollisionsWith(collidable: Collidable, movement: Vector2f): Unit =
+  private def handleCollisionsWith(
+    collidable: Collidable,
+    movement: Vector2f,
+    increaseSpeed: Boolean,
+    decreaseSpeed: Boolean
+  ): Unit =
     if (collidable collidesWith this) {
       val moveDirBack = movementBackwards(movement)
       var timesMovedBack = 0
@@ -108,6 +120,12 @@ class Ball extends Renderable with Collidable {
           else
               bounceCounterClockWise()
           paddle.ballBounced()
+          if (increaseSpeed) {
+            speed += speedAdjustDelta
+          }
+          if (decreaseSpeed && speed > 0) {
+            speed -= speedAdjustDelta
+          }
         case brick: Brick =>
           if (currTheta >= 270)
             bounceClockWise()
