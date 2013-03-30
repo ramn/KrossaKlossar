@@ -77,10 +77,17 @@ class Ball extends Renderable with Collidable {
           else
             bounceClockWise()
         case paddle: Paddle =>
-          if (currTheta > 90)
+          val width = radius*2
+          val onLeftEdge = position.x <= paddle.collisionShape.getMinX-width
+          val onRightEdge = position.x > paddle.collisionShape.getMaxX
+          if (onLeftEdge)
             bounceClockWise()
-          else
+          else if (onRightEdge)
             bounceCounterClockWise()
+          else if (currTheta > 90)
+              bounceClockWise()
+          else
+              bounceCounterClockWise()
         case brick: Brick =>
           if (currTheta >= 270)
             bounceClockWise()
