@@ -18,7 +18,7 @@ class Ball extends Renderable with Collidable {
   private val radius = 4
   private val initX = Width/2-radius/2
   private val initY = Height/2
-  private val initialSpeed = 0.35f
+  private val initialSpeed = 0.25f
   private val speed = initialSpeed
   private val position = new Vector2f(initX, initY)
   private val shape: Shape = new Circle(initX, initY, radius)
