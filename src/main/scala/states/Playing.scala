@@ -11,6 +11,7 @@ import org.newdawn.slick.Music
 import se.ramn.krossaklossar.util
 import se.ramn.krossaklossar.level.Level
 import se.ramn.krossaklossar.level.Level001
+import se.ramn.krossaklossar.level.Level002
 import se.ramn.krossaklossar.KrossaKlossar.Height
 
 
@@ -18,6 +19,7 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
   private val music = new Music("music/explore_your_mind.mod")
 
   private var level: Level = _
+  private var remainingLevels: Seq[Level] = _
 
   def getID: Int = gameState.id
 
@@ -29,8 +31,14 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
     level.update(gc, game, delta)
     if (level.balls.isEmpty) {
       game.enterState(GameStates.GameOver.id)
-    } else if (level.bricks.isEmpty) {
-      game.enterState(GameStates.Victory.id)
+    } else if (level.completed || gc.getInput.isKeyPressed(Input.KEY_N)) {
+      remainingLevels match {
+        case next :: rest =>
+          level = next
+          remainingLevels = rest
+        case Nil =>
+          game.enterState(GameStates.Victory.id)
+      }
     }
   }
 
@@ -48,6 +56,10 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
 
   override def enter(gc: GameContainer, game: StateBasedGame) {
     super.enter(gc, game)
-    level = new Level001
+    val (first :: rest) = levels
+    level = first
+    remainingLevels = rest
   }
+
+  private def levels = List(new Level001, new Level002)
 }

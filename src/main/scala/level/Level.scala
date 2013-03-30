@@ -31,6 +31,8 @@ trait Level {
 
   def costOfNewBall: Int
 
+  def completed: Boolean = bricks.isEmpty
+
   protected def points_=(value: Int) {
     _points = value
   }
