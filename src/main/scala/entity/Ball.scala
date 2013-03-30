@@ -28,7 +28,6 @@ class Ball extends Renderable with Collidable {
 
   private var killCount = 0
 
-  def update(gc: GameContainer, game: StateBasedGame, delta: Int) {}
   def update(gc: GameContainer, game: StateBasedGame, delta: Int, level: Level) {
     val movement = direction.copy.scale(speed * delta)
     position.add(movement)
