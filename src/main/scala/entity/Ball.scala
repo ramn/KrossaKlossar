@@ -34,6 +34,7 @@ class Ball extends Renderable with Collidable {
     handleCollisionsWith(level.leftWall, movement)
     handleCollisionsWith(level.rightWall, movement)
     handleCollisionsWith(level.topWall, movement)
+    level.bricks foreach { brick => handleCollisionsWith(brick, movement) }
   }
 
   def render(g: Graphics) {
@@ -80,6 +81,12 @@ class Ball extends Renderable with Collidable {
             bounceClockWise()
           else
             bounceCounterClockWise()
+        case brick: Brick =>
+          if (currTheta >= 270)
+            bounceClockWise()
+          else
+            bounceCounterClockWise()
+          brick.gotHit()
       }
       val moveForwardInNewDir = movementBackwards(moveDirBack)
       for (i <- 0 until timesMovedBack) {

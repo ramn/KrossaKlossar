@@ -16,6 +16,8 @@ trait Level {
 
   def bricks: Seq[Brick]
 
+  def bricks_=(value: Seq[Brick])
+
   def leftWall: LeftWall
 
   def rightWall: RightWall
@@ -28,6 +30,7 @@ trait Level {
     bricks foreach (_ update (gc, game, delta))
 
     balls = balls filterNot (_.isDropped)
+    bricks = bricks filterNot (_.isDestroyed)
   }
 
   def render(g: Graphics) {

@@ -10,17 +10,34 @@ import org.newdawn.slick.Music
 import org.newdawn.slick.Image
 import org.newdawn.slick.SpriteSheet
 import org.newdawn.slick.geom.{Shape, Rectangle}
+import org.newdawn.slick.geom.Vector2f
 
 import se.ramn.krossaklossar.collision.Collidable
+import Brick._
 
 
-class Brick extends Renderable with Collidable {
+class Brick(position: Vector2f) extends Renderable with Collidable {
+  private val shape = new Rectangle(position.x, position.y, width, height)
+  private var hits = 0
 
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
   }
 
   def render(g: Graphics) {
+    g.setColor(Color.gray)
+    g.fill(shape)
   }
 
-  override def collisionShape = ???
+  def gotHit() {
+    hits += 1
+  }
+
+  def isDestroyed: Boolean = hits > 3
+
+  override def collisionShape = shape
+}
+
+object Brick {
+  val width = 60
+  val height = 22
 }
