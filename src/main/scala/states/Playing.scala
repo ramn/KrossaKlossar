@@ -20,6 +20,7 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
 
   private var level: Level = _
   private var remainingLevels: Seq[Level] = _
+  private var _levelsCompleted = 0
   setupLevels()
 
   def getID: Int = gameState.id
@@ -28,7 +29,7 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
 
   lazy val levelsCount = levels.length
 
-  def levelsCompleted: Int = levelsCount - remainingLevels.length - 1
+  def levelsCompleted: Int = _levelsCompleted
 
   def init(gc: GameContainer, game: StateBasedGame) {
     music.loop()
@@ -39,6 +40,7 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
     if (level.balls.isEmpty) {
       game.enterState(GameStates.GameOver.id)
     } else if (level.completed || gc.getInput.isKeyPressed(Input.KEY_N)) {
+      levelsCompleted += 1
       val lastLevel = level
       remainingLevels match {
         case next :: rest =>
@@ -68,10 +70,13 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
     setupLevels()
   }
 
+  protected def levelsCompleted_=(value: Int) = _levelsCompleted = value
+
   private def setupLevels() {
     val (first :: rest) = levels
     level = first
     remainingLevels = rest
+    levelsCompleted = 0
   }
 
   private def levels = List(new Level001, new Level002)
