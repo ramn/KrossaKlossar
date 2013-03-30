@@ -48,7 +48,7 @@ class Ball extends Renderable with Collidable {
 
 
   // @return true if collided
-  private def handleCollisionsWith(collidable: Collidable, movement: Vector2f): Boolean =
+  private def handleCollisionsWith(collidable: Collidable, movement: Vector2f): Unit =
     if (collidable collidesWith this) {
       val moveDirBack = movementBackwards(movement)
       var timesMovedBack = 0
@@ -100,9 +100,6 @@ class Ball extends Renderable with Collidable {
         position.add(moveForwardInNewDir)
         shape.setLocation(position)
       }
-      true
-    } else {
-      false
     }
 
   private def bounce(clockWise: Boolean) {
