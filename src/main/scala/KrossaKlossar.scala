@@ -19,7 +19,7 @@ object KrossaKlossar extends App {
   app.start()
 }
 
-class KrossaKlossar extends StateBasedGame("Objects in Space") {
+class KrossaKlossar extends StateBasedGame("Krossa Klossar") {
   def initStatesList(gc: GameContainer) {
     this.addState(new Menu(GameStates.Menu))
     this.addState(new Playing(GameStates.Playing))
