@@ -32,7 +32,7 @@ class Brick(position: Vector2f) extends Renderable with Collidable {
     hits += 1
   }
 
-  def isDestroyed: Boolean = hits > 3
+  def isDestroyed: Boolean = hits >= 2
 
   override def collisionShape = shape
 }
