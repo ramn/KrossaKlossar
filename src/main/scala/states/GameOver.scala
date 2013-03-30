@@ -25,7 +25,7 @@ class GameOver(val gameState: GameStates.Value) extends BasicGameState {
     if (gc.getInput.isKeyPressed(Input.KEY_M)) {
       game.enterState(GameStates.Menu.id)
     } else if (gc.getInput.isKeyPressed(Input.KEY_Q)) {
-      sys.exit
+      gc.exit()
     } else if (gc.getInput.isKeyPressed(Input.KEY_ENTER)) {
       game.enterState(GameStates.AddHighscoreEntry.id)
     }

@@ -27,7 +27,7 @@ class Menu(val gameState: GameStates.Value) extends BasicGameState {
     if (gc.getInput.isKeyPressed(Input.KEY_P)) {
       game.enterState(GameStates.Playing.id)
     } else if (gc.getInput.isKeyPressed(Input.KEY_Q)) {
-      sys.exit
+      gc.exit()
     }
   }
 
