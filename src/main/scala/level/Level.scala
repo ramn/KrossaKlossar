@@ -38,6 +38,10 @@ trait Level {
     entitiesNoBalls foreach (_ render g)
   }
 
+  def addBall() {
+    balls = new Ball +: balls
+  }
+
   private def entitiesNoBalls: Seq[Renderable] =
     bricks ++ Seq(paddle, leftWall, rightWall, topWall)
 }
