@@ -26,6 +26,9 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
 
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
     level.update(gc, game, delta)
+    if (level.balls.isEmpty) {
+      game.enterState(GameStates.GameOver.id)
+    }
   }
 
   def render(gc: GameContainer, game: StateBasedGame, g: Graphics) {
@@ -34,6 +37,6 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
 
   override def enter(gc: GameContainer, game: StateBasedGame) {
     super.enter(gc, game)
-    level = Level001
+    level = new Level001
   }
 }

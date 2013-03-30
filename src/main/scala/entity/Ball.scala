@@ -43,6 +43,8 @@ class Ball extends Renderable with Collidable {
 
   override def collisionShape = shape
 
+  def isDropped: Boolean = position.y >= Height
+
 
   // @return true if collided
   private def handleCollisionsWith(collidable: Collidable, movement: Vector2f): Boolean =

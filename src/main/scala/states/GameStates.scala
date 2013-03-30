@@ -1,5 +1,5 @@
 package se.ramn.krossaklossar.states
 
 object GameStates extends Enumeration {
-  val Playing, Menu = Value
+  val Playing, Menu, GameOver = Value
 }

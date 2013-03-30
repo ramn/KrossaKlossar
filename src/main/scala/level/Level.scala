@@ -10,6 +10,8 @@ import se.ramn.krossaklossar.entity._
 trait Level {
   def balls: Seq[Ball]
 
+  def balls_=(value: Seq[Ball])
+
   def paddle: Paddle
 
   def bricks: Seq[Brick]
@@ -24,6 +26,8 @@ trait Level {
     balls foreach (_ update(gc, game, delta, this))
     paddle update (gc, game, delta)
     bricks foreach (_ update (gc, game, delta))
+
+    balls = balls filterNot (_.isDropped)
   }
 
   def render(g: Graphics) {
