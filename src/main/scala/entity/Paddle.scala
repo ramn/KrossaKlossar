@@ -6,14 +6,9 @@ import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.Color
 import org.newdawn.slick.Graphics
 import org.newdawn.slick.Input
-import org.newdawn.slick.Music
-import org.newdawn.slick.Image
-import org.newdawn.slick.SpriteSheet
+import org.newdawn.slick.Sound
 import org.newdawn.slick.geom.{Shape, Rectangle}
-import org.newdawn.slick.Animation
 import org.newdawn.slick.Input
-import org.newdawn.slick.MouseListener
-import org.newdawn.slick.geom.Shape
 import org.newdawn.slick.geom.Vector2f
 
 import se.ramn.krossaklossar.KrossaKlossar.{Width, Height}
@@ -53,5 +48,13 @@ class Paddle extends Renderable with Collidable {
       position.x = rightStop
     }
     shape.setLocation(position)
+  }
+}
+
+object Paddle {
+  private val bounceSound = new Sound("sound/bouncePaddle.wav")
+
+  def playBounceSound() {
+    bounceSound.play()
   }
 }
