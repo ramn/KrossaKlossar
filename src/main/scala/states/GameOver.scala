@@ -26,9 +26,19 @@ class GameOver(val gameState: GameStates.Value) extends BasicGameState {
   }
 
   def render(gc: GameContainer, game: StateBasedGame, g: Graphics) {
+    val (points, levelsCompleted, levelsCount) =
+      game.getState(GameStates.Playing.id) match {
+        case p: Playing => (p.points, p.levelsCompleted, p.levelsCount)
+        case _ => (0, 0, 0)
+      }
     g.setFont(font)
-    val menu = """
-    |Game Over!
+    val allLevelsCompleted = levelsCompleted == levelsCount
+    val message = if (allLevelsCompleted) "Victory!" else "Game over!"
+    val menu = s"""
+    |${message}
+    |
+    |Levels completed: ${levelsCompleted} of ${levelsCount}
+    |Score: ${points}
     |
     |Press m for menu
     |Press q to quit

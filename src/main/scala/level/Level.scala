@@ -33,7 +33,7 @@ trait Level {
 
   def completed: Boolean = bricks.isEmpty
 
-  protected def points_=(value: Int) {
+  def points_=(value: Int) {
     _points = value
   }
 
