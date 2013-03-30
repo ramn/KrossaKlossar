@@ -108,7 +108,7 @@ class Ball extends Renderable with Collidable {
               bounceClockWise()
           else
               bounceCounterClockWise()
-          Paddle.playBounceSound()
+          paddle.ballBounced()
         case brick: Brick =>
           if (currTheta >= 270)
             bounceClockWise()

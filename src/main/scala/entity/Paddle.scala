@@ -35,6 +35,10 @@ class Paddle extends Renderable with Collidable {
 
   override def collisionShape = shape
 
+  def ballBounced() {
+    Paddle.playBounceSound()
+  }
+
   private def updatePosition(gc: GameContainer) {
     val margin = 10
     val leftStop = margin
