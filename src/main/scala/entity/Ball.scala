@@ -105,7 +105,10 @@ class Ball extends Renderable with Collidable {
     val operator: (Double, Double) => Double =
       if (clockWise) (a, b) => a + b
       else (a, b) => a - b
-    direction.setTheta(operator(direction.getTheta, (direction.getTheta*2)%180))
+    direction.setTheta(
+      operator(
+        direction.getTheta,
+        (direction.getTheta * 2) % 180))
   }
 
   private def bounceClockWise() {
