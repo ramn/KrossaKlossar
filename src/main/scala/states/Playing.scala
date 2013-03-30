@@ -17,7 +17,7 @@ import se.ramn.krossaklossar.level.Level001
 
 
 class Playing(val gameState: GameStates.Value) extends BasicGameState {
-  var level: Level = _
+  private var level: Level = _
 
   def getID: Int = gameState.id
 
