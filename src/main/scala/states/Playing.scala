@@ -6,6 +6,7 @@ import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.Color
 import org.newdawn.slick.Graphics
 import org.newdawn.slick.Input
+import org.newdawn.slick.Music
 
 import se.ramn.krossaklossar.util
 import se.ramn.krossaklossar.level.Level
@@ -14,11 +15,14 @@ import se.ramn.krossaklossar.KrossaKlossar.Height
 
 
 class Playing(val gameState: GameStates.Value) extends BasicGameState {
+  private val music = new Music("music/explore_your_mind.mod")
+
   private var level: Level = _
 
   def getID: Int = gameState.id
 
   def init(gc: GameContainer, game: StateBasedGame) {
+    music.loop()
   }
 
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
