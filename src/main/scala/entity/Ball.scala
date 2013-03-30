@@ -47,7 +47,6 @@ class Ball extends Renderable with Collidable {
   def isDropped: Boolean = position.y >= Height
 
 
-  // @return true if collided
   private def handleCollisionsWith(collidable: Collidable, movement: Vector2f): Unit =
     if (collidable collidesWith this) {
       val moveDirBack = movementBackwards(movement)
