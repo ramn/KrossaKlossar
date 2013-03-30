@@ -12,6 +12,7 @@ import org.newdawn.slick.SpriteSheet
 import org.newdawn.slick.geom.{Shape, Rectangle}
 
 import se.ramn.krossaklossar.util
+import se.ramn.krossaklossar.Highscore
 
 
 class Menu(val gameState: GameStates.Value) extends BasicGameState {
@@ -32,7 +33,7 @@ class Menu(val gameState: GameStates.Value) extends BasicGameState {
 
   def render(gc: GameContainer, game: StateBasedGame, g: Graphics) {
     g.setFont(font)
-    val menu = """
+    val menu = s"""
     |Welcome to Krossa Klossar!
     |
     |Press p to play
@@ -44,6 +45,11 @@ class Menu(val gameState: GameStates.Value) extends BasicGameState {
     |Buy more balls by pressing b. This costs points!
     |Press z while the ball is hitting the paddle to increase ball speed
     |Press x while the ball is hitting the paddle to decrease ball speed
+    |
+    |
+    |Highscore
+    |---------
+    |${Highscore.highscores.lastOption.map( h => h.points.toString + "  " +  h.name).getOrElse("")}
     |""".stripMargin.trim
 
     g.drawString(menu, 100, 100)
