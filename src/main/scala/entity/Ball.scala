@@ -23,6 +23,10 @@ class Ball extends Renderable with Collidable {
   private val position = new Vector2f(initX, initY)
   private val shape: Shape = new Circle(initX, initY, radius)
   private val direction = new Vector2f(-1.0f, 1.0f)
+  private val killsRequiredPerLevel = 4
+  private val maxLevel = 4
+
+  private var killCount = 0
 
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {}
   def update(gc: GameContainer, game: StateBasedGame, delta: Int, level: Level) {
@@ -38,13 +42,30 @@ class Ball extends Renderable with Collidable {
   }
 
   def render(g: Graphics) {
-    g.setColor(Color.white)
+    val color = level match {
+      case 1 => Color.white
+      case 2 => Color.lightGray
+      case 3 => Color.gray
+      case 4 => Color.darkGray
+      case _ => Color.pink
+    }
+    g.setColor(color)
     g.fill(shape)
   }
 
   override def collisionShape = shape
 
   def isDropped: Boolean = position.y >= Height
+
+  def level = {
+    val levelCandidate = 1 + (killCount / killsRequiredPerLevel)
+    if (levelCandidate <= maxLevel)
+      levelCandidate
+    else
+      maxLevel
+  }
+
+  def damage = level
 
 
   private def handleCollisionsWith(collidable: Collidable, movement: Vector2f): Unit =
@@ -92,7 +113,12 @@ class Ball extends Renderable with Collidable {
             bounceClockWise()
           else
             bounceCounterClockWise()
-          brick.gotHit()
+          if (!brick.isDestroyed) {
+            brick.hit(damage)
+            if (brick.isDestroyed) {
+              killCount += 1
+            }
+          }
       }
       val moveForwardInNewDir = movementBackwards(moveDirBack)
       for (i <- 0 until timesMovedBack) {

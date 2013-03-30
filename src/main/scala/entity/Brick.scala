@@ -17,9 +17,9 @@ import Brick._
 
 
 class Brick(position: Vector2f) extends Renderable with Collidable {
-  val life = 1
+  val life = 2
   private val shape = new Rectangle(position.x, position.y, width, height)
-  private var hits = 0
+  private var damageTaken = 0
 
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
   }
@@ -29,11 +29,11 @@ class Brick(position: Vector2f) extends Renderable with Collidable {
     g.fill(shape)
   }
 
-  def gotHit() {
-    hits += 1
+  def hit(damage: Int) {
+    damageTaken += damage
   }
 
-  def isDestroyed: Boolean = hits >= life
+  def isDestroyed: Boolean = damageTaken >= life
 
   override def collisionShape = shape
 }
