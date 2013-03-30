@@ -49,7 +49,7 @@ class Menu(val gameState: GameStates.Value) extends BasicGameState {
     |
     |Highscore
     |---------
-    |${Highscore.highscores.lastOption.map( h => h.points.toString + "  " +  h.name).getOrElse("")}
+    |${Highscore.toString}
     |""".stripMargin.trim
 
     g.drawString(menu, 100, 100)
