@@ -8,15 +8,17 @@ import se.ramn.krossaklossar.entity._
 
 
 trait Level {
+  private var _points = 0
+
   def balls: Seq[Ball]
 
-  def balls_=(value: Seq[Ball])
+  protected def balls_=(value: Seq[Ball])
 
   def paddle: Paddle
 
   def bricks: Seq[Brick]
 
-  def bricks_=(value: Seq[Brick])
+  protected def bricks_=(value: Seq[Brick])
 
   def leftWall: LeftWall
 
@@ -24,12 +26,19 @@ trait Level {
 
   def topWall: TopWall
 
+  def points: Int = _points
+
+  protected def points_=(value: Int) {
+    _points = value
+  }
+
   def update(gc: GameContainer, game: StateBasedGame, delta: Int) {
     balls foreach (_ update(gc, game, delta, this))
     paddle update (gc, game, delta)
     bricks foreach (_ update (gc, game, delta))
 
     balls = balls filterNot (_.isDropped)
+    points += (bricks filter (_.isDestroyed) map (_.pointsWorth)).sum
     bricks = bricks filterNot (_.isDestroyed)
   }
 

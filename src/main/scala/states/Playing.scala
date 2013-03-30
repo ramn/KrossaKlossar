@@ -14,6 +14,7 @@ import org.newdawn.slick.geom.{Shape, Rectangle}
 import se.ramn.krossaklossar.util
 import se.ramn.krossaklossar.level.Level
 import se.ramn.krossaklossar.level.Level001
+import se.ramn.krossaklossar.KrossaKlossar.Height
 
 
 class Playing(val gameState: GameStates.Value) extends BasicGameState {
@@ -35,6 +36,8 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
 
   def render(gc: GameContainer, game: StateBasedGame, g: Graphics) {
     level.render(g)
+    g.setFont(util.Font.default)
+    g.drawString(s"Score: ${level.points}", 15, Height-15)
   }
 
   override def enter(gc: GameContainer, game: StateBasedGame) {

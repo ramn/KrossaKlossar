@@ -18,6 +18,8 @@ import Brick._
 
 class Brick(position: Vector2f) extends Renderable with Collidable {
   val life = 2
+  val pointsWorth = 50
+
   private val shape = new Rectangle(position.x, position.y, width, height)
   private var damageTaken = 0
 
