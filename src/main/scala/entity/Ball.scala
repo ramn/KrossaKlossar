@@ -77,8 +77,8 @@ class Ball extends Renderable with Collidable {
           else
             bounceClockWise()
         case paddle: Paddle =>
-          val width = radius*2
-          val onLeftEdge = position.x <= paddle.collisionShape.getMinX-width
+          val width = radius * 2
+          val onLeftEdge = position.x <= paddle.collisionShape.getMinX - width
           val onRightEdge = position.x > paddle.collisionShape.getMaxX
           if (onLeftEdge)
             bounceClockWise()
