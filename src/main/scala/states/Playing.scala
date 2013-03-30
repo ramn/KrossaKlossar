@@ -28,6 +28,8 @@ class Playing(val gameState: GameStates.Value) extends BasicGameState {
     level.update(gc, game, delta)
     if (level.balls.isEmpty) {
       game.enterState(GameStates.GameOver.id)
+    } else if (level.bricks.isEmpty) {
+      game.enterState(GameStates.Victory.id)
     }
   }
 

@@ -24,5 +24,6 @@ class KrossaKlossar extends StateBasedGame("Objects in Space") {
     this.addState(new Menu(GameStates.Menu))
     this.addState(new Playing(GameStates.Playing))
     this.addState(new GameOver(GameStates.GameOver))
+    this.addState(new Victory(GameStates.Victory))
   }
 }
