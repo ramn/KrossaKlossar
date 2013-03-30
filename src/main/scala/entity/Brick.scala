@@ -6,9 +6,7 @@ import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.Color
 import org.newdawn.slick.Graphics
 import org.newdawn.slick.Input
-import org.newdawn.slick.Music
-import org.newdawn.slick.Image
-import org.newdawn.slick.SpriteSheet
+import org.newdawn.slick.Sound
 import org.newdawn.slick.geom.{Shape, Rectangle}
 import org.newdawn.slick.geom.Vector2f
 
@@ -33,6 +31,12 @@ class Brick(position: Vector2f) extends Renderable with Collidable {
 
   def hit(damage: Int) {
     damageTaken += damage
+
+    if (isDestroyed) {
+      playDestroySound()
+    } else {
+      playHitSound()
+    }
   }
 
   def isDestroyed: Boolean = damageTaken >= life
@@ -43,4 +47,16 @@ class Brick(position: Vector2f) extends Renderable with Collidable {
 object Brick {
   val width = 60
   val height = 22
+
+  private val hitSound = new Sound("sound/hitBrick.wav")
+  private val destroySound = new Sound("sound/destroyBrick.wav")
+
+  def playHitSound() {
+    hitSound.play()
+  }
+
+  def playDestroySound() {
+    destroySound.play()
+  }
 }
+
